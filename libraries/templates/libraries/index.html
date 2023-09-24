@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4 py-4">
+            {% for p in posts %}
+                {% if p.user == request.user %}
+                <div class="row">
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-6 justify-content-right">
+                        <div class="card card-bg-blue shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h6 class="">{{ p.user.username }}</h6></div>
+                            <div class="card-body">
+                                <p class="blockquote">{{ p.judul }}</p>
+                                <a href="{% url 'detail' p.id %}" class="text-dark">Show more ...</a>
+                            </div>
+                            <div class="card-footer text-right py-3">
+                                <div class="small">{{ p.tanggal|date:"j F Y" }} - {{ p.waktu|time:"H:i" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-lg-6 justify-content-right">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h6 class="">{{ p.user.username }}</h6></div>
+                            <div class="card-body">
+                                <p class="blockquote">{{ p.judul }}</p>
+                                <a href="{% url 'detail' p.id %}" class="text-dark">Show more ...</a>
+                            </div>
+                            <div class="card-footer text-right py-3">
+                                <div class="small">{{ p.tanggal|date:"j F Y" }} - {{ p.waktu|time:"H:i" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6"></div>
+                </div>
+                {% endif %}
+            {% endfor %}      
+        </div>
+    </main>
+    <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                <div>
+                    <a href="#">Privacy Policy</a>&middot;<a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+{% endblock body %}
